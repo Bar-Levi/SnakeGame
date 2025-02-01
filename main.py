@@ -52,20 +52,20 @@ moving_apples_x = random.randint(0, 29) * IMAGE_SIZE
 moving_apples_y = random.randint(0, 19) * IMAGE_SIZE
 
 # Loading the images:
-RED_CARPET = pygame.image.load("red_carpet.png")
-WASD_IMAGE = pygame.image.load("wasd.png")
-ARROWS_IMAGE = pygame.image.load("arrows.png")
-BOMB_ICON = pygame.image.load("bomb.png")
-EXPLOSION_ICON = pygame.image.load("explosion.png")
+RED_CARPET = pygame.image.load("./assets/red_carpet.png")
+WASD_IMAGE = pygame.image.load("./assets/wasd.png")
+ARROWS_IMAGE = pygame.image.load("./assets/arrows.png")
+BOMB_ICON = pygame.image.load("./assets/bomb.png")
+EXPLOSION_ICON = pygame.image.load("./assets/explosion.png")
 pygame.display.set_caption("Bar Levi - Snake")
-RED_APPLE = pygame.image.load("red_apple.png")
-SNAKE_ICON = pygame.image.load("snake_icon.png")
+RED_APPLE = pygame.image.load("./assets/red_apple.png")
+SNAKE_ICON = pygame.image.load("./assets/snake_icon.png")
 pygame.display.set_icon(SNAKE_ICON)
-SNAKE_BODY = pygame.image.load("snake_body.png")
-TWO_APPLES_IMAGE = pygame.image.load("two_apples.png")
+SNAKE_BODY = pygame.image.load("./assets/snake_body.png")
+TWO_APPLES_IMAGE = pygame.image.load("./assets/two_apples.png")
 
 # Initializing head's image directions:
-SNAKE_HEAD_DOWN = pygame.image.load("snake_head.png")
+SNAKE_HEAD_DOWN = pygame.image.load("./assets/snake_head.png")
 SNAKE_HEAD_RIGHT = pygame.transform.rotate(SNAKE_HEAD_DOWN, 90)
 SNAKE_HEAD_UP = pygame.transform.rotate(SNAKE_HEAD_DOWN, 180)
 SNAKE_HEAD_LEFT = pygame.transform.rotate(SNAKE_HEAD_DOWN, 270)
@@ -125,7 +125,7 @@ def CreateASnake(body):  # Showing the snake's body.
 
 def GameOver(body_coordinates):  # Exploding the snake's body, and Adding the player's name and score to "Records.txt".
     global username
-    explosion_sound = pygame.mixer.Sound("explosion_sound.wav")
+    explosion_sound = pygame.mixer.Sound("./assets/explosion_sound.wav")
     # Exploding the snake's body:
     for coordinate in body_coordinates:
         WIN.blit(BOMB_ICON, coordinate)
@@ -199,7 +199,7 @@ def HandleSnakeMovement(direction):  # The function which is actually changing t
     # line 200: "timer/100" - Making sure the speed is slowly increased while playing since "timer" is always increasing.
     pygame.time.wait(int(240 - timer / 100))
     if body_coordinates[0] == (apple_x, apple_y):  # If the snake is eating the apple:
-        eating_sound = pygame.mixer.Sound("bite_sound.wav")
+        eating_sound = pygame.mixer.Sound("./assets/bite_sound.wav")
         eating_sound.play()  # Play a biting sound.
         AddBodyPart()  # Add a body part to the snake.
         apple_eaten = True
@@ -315,9 +315,9 @@ def GetSettings():  # Getting information from the player: username and playing 
 def Menu():
     Chose = False
     menu_window = pygame.display.set_mode((WIDTH, HEIGHT))
-    TOP_FIVE_IMAGE = pygame.image.load("trophy.png")
-    PLAY_AGAIN_IMAGE = pygame.image.load("snake_and_apple.png")
-    EXIT_IMAGE = pygame.image.load("exit.png")
+    TOP_FIVE_IMAGE = pygame.image.load("./assets/trophy.png")
+    PLAY_AGAIN_IMAGE = pygame.image.load("./assets/snake_and_apple.png")
+    EXIT_IMAGE = pygame.image.load("./assets/exit.png")
     play_again_rect = pygame.Rect(150, 350, 128, 128)
     top_five_rect = pygame.Rect(400, 350, 128, 128)
     exit_rect = pygame.Rect(650, 350, 128, 128)
@@ -358,7 +358,7 @@ def Menu():
 
 def Pause():  # Pausing the game and freezing the screen.
     global Paused
-    PAUSE_IMAGE = pygame.image.load("pause-button.png")
+    PAUSE_IMAGE = pygame.image.load("./assets/pause-button.png")
     WIN.blit(PAUSE_IMAGE, (WIDTH / 2 - 64, HEIGHT / 2 - 64))
     pygame.display.update()
     while Paused:
@@ -422,7 +422,7 @@ def PrintLeaderboard():  # Showing the top 5 players with highest records.
     text = font.render("Back to Main Menu", True, WHITE)
     leaderboards_window.blit(text, (28, 28))
     # Showing the leaderboards' table:
-    LEADERBOARDS_IMAGE = pygame.image.load("leaderboard.png")
+    LEADERBOARDS_IMAGE = pygame.image.load("./assets/leaderboard.png")
     leaderboards_window.blit(LEADERBOARDS_IMAGE, (WIDTH / 2 - 256, HEIGHT / 2 - 220))
     # Printing the Top 5 - NOTE: might be less than 5 (depends on the amount of players who have already played):
     try:
@@ -481,7 +481,7 @@ def HandleMovingApples():  # The function which is actually moving the moving ap
     global moving_apples_x, moving_apples_y, body_coordinates, moving_apples_on, timer
     WIN.blit(TWO_APPLES_IMAGE, (moving_apples_x, moving_apples_y))
     if body_coordinates[0] == (moving_apples_x, moving_apples_y):  # If the snake is eating the moving apples.
-        bite_sound = pygame.mixer.Sound("bite_sound.wav")
+        bite_sound = pygame.mixer.Sound("./assets/bite_sound.wav")
         bite_sound.play()
         moving_apples_on = False
         # Add 2 points - 2 body parts:
