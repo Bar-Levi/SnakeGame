@@ -80,7 +80,7 @@ def NewGameSetup():  # Resetting all the required variables for a new game.
     timer = 0
     Movement_Status = DIRECTION = "Up"
     BodyPart.snake_size = 0
-    snake_x, snake_y = 14 * IMAGE_SIZE, 10 * IMAGE_SIZE  # Bringing the snake's body back tho the middle of the window.
+    snake_x, snake_y = 14 * IMAGE_SIZE, 10 * IMAGE_SIZE  # Bringing the snake's body back to the middle of the window.
     # Creating the snake's body by initializing BodyPart() variables:
     head = BodyPart(snake_x, snake_y)
     head.Head = True  # That's the first body part -> Head = True.
@@ -293,7 +293,7 @@ def GetSettings():  # Getting information from the player: username and playing 
                 if wasd_rect.collidepoint(pygame.mouse.get_pos()):  # if the player is pressing the WASD image.
                     movement_keys = "WASD"
                     Got_Movement_Keys = True
-                if arrows_rect.collidepoint(pygame.mouse.get_pos()):# if the player is pressing the Arrows image.
+                if arrows_rect.collidepoint(pygame.mouse.get_pos()):  # if the player is pressing the Arrows image.
                     movement_keys = "Arrows"
                     Got_Movement_Keys = True
             if event.type == pygame.QUIT:
@@ -513,6 +513,17 @@ def HandleMovingApples():  # The function which is actually moving the moving ap
             moving_apples_y += IMAGE_SIZE
 
 
+def DisplayScore():
+    """
+    Displays the current score on the screen.
+    The score is based on the current snake size.
+    """
+    font = pygame.font.SysFont("arial", 24)
+    score = BodyPart.snake_size
+    text = font.render(f"Score: {score}", True, WHITE)
+    WIN.blit(text, (10, 10))
+
+
 def main():  # The main function which handles all the other functions.
     global running, Paused, DIRECTION, timer
     NewGameSetup()
@@ -543,7 +554,7 @@ def main():  # The main function which handles all the other functions.
                         CheckArrowsMovement(event)
                     if event.key == pygame.K_p:  # If the player is pressing 'p' button:
                         Paused = True
-                        Pause() 
+                        Pause()
             WIN.fill(BLACK)
             DrawGrid()
             HandleSnakeMovement(DIRECTION)
@@ -551,7 +562,9 @@ def main():  # The main function which handles all the other functions.
                 if not moving_apples_on:
                     CreateMovingApples()
                 HandleMovingApples()
+            DisplayScore()  # Display the current score on the screen.
             timer += 1
+            pygame.display.update()
 
 
 if __name__ == "__main__":
